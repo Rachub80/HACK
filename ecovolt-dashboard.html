@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ecovolt</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; background: #fafafa; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+    .card { background: white; border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Ecovolt</h1>
+  <div class="grid"><div class="card"><canvas id="c0"></canvas></div><div class="card"><canvas id="c1"></canvas></div></div>
+  <script>
+    const charts = [{"title":"Devices by type","type":"bar","labels":["MCB","ENV_SENSOR"],"values":[50,3]},{"title":"Daily energy, last 14 days (kWh)","type":"bar","labels":["09-16","09-17","09-18","09-19","09-20","09-21","09-22","09-23","09-24","09-25","09-26","09-27","09-28","09-29","09-30"],"values":[116.125451399755,119.380099384525,109.801354020387,98.990461880132,47.249657421296,116.040162195834,124.4401974947119,116.1497026763496,119.538964222953,99.23291397765801,57.595852675709,23.812145432776,110.369914816256,122.25784827456701,54.031170939892]}];
+    charts.forEach((c, i) => new Chart(document.getElementById('c' + i), {
+      type: c.type,
+      data: { labels: c.labels, datasets: [{ data: c.values, backgroundColor: '#16a34a', borderColor: '#16a34a' }] },
+      options: {
+        indexAxis: c.horizontal ? 'y' : 'x',
+        plugins: { title: { display: true, text: c.title }, legend: { display: false } },
+      },
+    }));
+  </script>
+</body>
+</html>
